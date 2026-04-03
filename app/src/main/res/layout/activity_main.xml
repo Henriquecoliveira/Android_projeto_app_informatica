@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tela_Confirmacao"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/produtos_Confirmados"
+        android:layout_width="409dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lista_Confirmados"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ppagamento_Confirmacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insira a forma de pagamento:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/produtos_Confirmados"
+        app:layout_constraintVertical_bias="0.173" />
+
+    <TextView
+        android:id="@+id/pendereco_Confirmacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Insira o endereço:"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pagamento_Confirmacao"
+        app:layout_constraintVertical_bias="0.054" />
+
+    <EditText
+        android:id="@+id/pagamento_Confirmacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Forma de pagamento"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ppagamento_Confirmacao"
+        app:layout_constraintVertical_bias="0.031" />
+
+    <EditText
+        android:id="@+id/endereco_Confirmacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Endereço"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pendereco_Confirmacao"
+        app:layout_constraintVertical_bias="0.053" />
+
+    <Button
+        android:id="@+id/cancelar_Confirmacao"
+        android:layout_width="187dp"
+        android:layout_height="46dp"
+        android:backgroundTint="#716E6E"
+        android:padding="0dp"
+        android:text="Cancelar"
+        android:textColor="#FFFFFF"
+        android:textColorLink="#7C7676"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.071"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/produtos_Confirmados"
+        app:layout_constraintVertical_bias="0.731"
+        app:rippleColor="#625D5D" />
+
+    <Button
+        android:id="@+id/confirmar_Confirmacao"
+        android:layout_width="187dp"
+        android:layout_height="46dp"
+        android:onClick="confirmar"
+        android:text="Confirmar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/produtos_Confirmados"
+        app:layout_constraintVertical_bias="0.731" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
