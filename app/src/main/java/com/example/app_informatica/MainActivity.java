@@ -31,8 +31,12 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView produtosRecyclerView = findViewById(R.id.recyclerViewProdutos);
 
         List<Produto> lista = new ArrayList<>();
-        lista.add(new Produto("I5 10th", "Processador Intel", 500.00, R.drawable.i5));
-        lista.add(new Produto("NVIDIA RTX 5090 ROG", "Placa de Vídeo ASUS RTX5090 ROG Astral Gaming OC NVIDIA GeForce, 32GB, GDDR7, ARGB, G-Sync, Ray Tracing, DLSS 4, HDR - 90YV0LW0-M0NA00", 32.999, R.drawable.rtx5090ti));
+        lista.add(new Produto("Intel Core I5 14400f 14ª Geração",
+                "Processador Intel Core I5 14400f 14ª Geração, 3.5 Ghz (4.7 Ghz Turbo), Cache 20mb, 10 Núcleos, 16 Threads, Lga1700, Sem Vídeo Integrado - Bx8071514400f", 1290.00, R.drawable.i514th));
+        lista.add(new Produto("NVIDIA RTX 5090 ROG", "Placa de Vídeo ASUS RTX5090 ROG Astral Gaming OC NVIDIA GeForce, 32GB, GDDR7, ARGB, G-Sync, Ray Tracing, DLSS 4, HDR - 90YV0LW0-M0NA00", 32999.00, R.drawable.rtx5090ti));
+        lista.add(new Produto("SSD Nvme Kingston M.2 500GB",
+                "SSD Kingston Nv3 500 Gb Nvme M.2 2280 Leitura 5000mb/s Gravação 6000mb/s- Snv3s/500g",
+                722.69, R.drawable.ssdkingston));
 
         ProdutoAdapter adaptador = new ProdutoAdapter(lista);
 

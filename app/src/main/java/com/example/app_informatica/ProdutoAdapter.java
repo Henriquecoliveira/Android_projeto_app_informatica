@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
     private List<Produto>listaProdutos;
@@ -28,7 +30,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
         Produto produto = listaProdutos.get(posicao);
         local.nome.setText(produto.nome);
         local.descricao.setText(produto.descricao);
-        local.preco.setText("R$ " + String.format("%.3f", produto.preco));
+        NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        local.preco.setText(formato.format(produto.preco));
         local.foto.setImageResource(produto.imagemProduto);
 
     }
