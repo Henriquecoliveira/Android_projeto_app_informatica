@@ -1,11 +1,16 @@
 package com.example.app_informatica;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -33,6 +38,29 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
         NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
         local.preco.setText(formato.format(produto.preco));
         local.foto.setImageResource(produto.imagemProduto);
+
+        local.itemView.setOnClickListener(v -> {
+            Context context = v.getContext();
+
+            BottomSheetDialog dialog = new BottomSheetDialog(context);
+            View view = LayoutInflater.from(context).inflate(R.layout.pop_up_produto, null);
+
+            ImageView imgPopup = view.findViewById(R.id.imgProdutoGrande);
+            imgPopup.setImageResource(produto.imagemProduto);
+
+            TextView tituloPopup = view.findViewById(R.id.txtTituloPopUp);
+            tituloPopup.setText(produto.nome);
+
+            TextView descricaoPopup = view.findViewById(R.id.txtDescricaoPopUp);
+            descricaoPopup.setText(produto.descricao);
+
+            TextView precoPopup = view.findViewById(R.id.txtPrecoPopUp);
+            NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+            precoPopup.setText(format.format(produto.preco));
+
+            dialog.setContentView(view);
+            dialog.show();
+        });
 
     }
     @Override
