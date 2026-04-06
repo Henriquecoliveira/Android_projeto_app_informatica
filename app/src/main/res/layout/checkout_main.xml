@@ -5,7 +5,7 @@
     android:id="@+id/tela_Confirmacao"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".CheckoutActivity">
 
     <LinearLayout
         android:id="@+id/produtos_Confirmados"
