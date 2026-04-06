@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -57,6 +59,34 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
             TextView precoPopup = view.findViewById(R.id.txtPrecoPopUp);
             NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
             precoPopup.setText(format.format(produto.preco));
+
+            TextView txtQuantidade = view.findViewById(R.id.txtQuantidade);
+            ImageButton addQuantidade = view.findViewById(R.id.imgButtomAdicionar);
+            ImageButton removeQuantidade = view.findViewById(R.id.imgButtomRemove);
+
+            final int[] quantidade = {1};
+            txtQuantidade.setText(String.valueOf(quantidade[0]));
+
+            double preco = produto.preco * quantidade[0];
+            precoPopup.setText(format.format(preco));
+
+            addQuantidade.setOnClickListener(view1 -> {
+                quantidade[0]++;
+                txtQuantidade.setText(String.valueOf(quantidade[0]));
+
+                double total = produto.preco * quantidade[0];
+                precoPopup.setText(format.format(total));
+
+            });
+            removeQuantidade.setOnClickListener(view2 ->{
+                if(quantidade[0] > 1){
+                    quantidade[0]--;
+                    txtQuantidade.setText(String.valueOf(quantidade[0]));
+
+                    double total = produto.preco * quantidade[0];
+                    precoPopup.setText(format.format(total));
+                }
+            });
 
             dialog.setContentView(view);
             dialog.show();
