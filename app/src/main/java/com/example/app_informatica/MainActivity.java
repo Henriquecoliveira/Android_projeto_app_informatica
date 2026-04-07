@@ -1,6 +1,8 @@
 package com.example.app_informatica;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,20 +17,26 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Carrinho cart;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        montarRecyclerView();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        this.cart = Carrinho.getInstance();
+        montarRecyclerView();
+
     }
     public void montarRecyclerView(){
         RecyclerView produtosRecyclerView = findViewById(R.id.recyclerViewProdutos);
+//        RecyclerView cartProductsReciclerView = findViewById(R.id.recyclerViewCartProducts);
 
         List<Produto> lista = new ArrayList<>();
 
@@ -107,10 +115,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ProdutoAdapter adaptador = new ProdutoAdapter(lista);
+        ProdutoAdapter adaptador = new ProdutoAdapter(lista, this.cart);
 
         produtosRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         produtosRecyclerView.setHasFixedSize(true);
         produtosRecyclerView.setAdapter(adaptador);
+
+//        ProdutoAdapter cartAdapter = new ProdutoAdapter(lista, this.cart);
+//
+//        cartProductsReciclerView.setLayoutManager(new LinearLayoutManager(this));
+//        cartProductsReciclerView.setHasFixedSize(true);
+//        cartProductsReciclerView.setAdapter(cartAdapter);
+
+    }
+
+    public void openCart(View view){
+        Intent intent = new Intent(this, CartActivity.class);
+        startActivity(intent);
     }
 }

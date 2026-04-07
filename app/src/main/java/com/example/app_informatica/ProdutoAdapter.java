@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,9 +21,11 @@ import java.util.Locale;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
     private List<Produto>listaProdutos;
+    private Carrinho cart;
 
-    public ProdutoAdapter(List<Produto>lista){
+    public ProdutoAdapter(List<Produto>lista, Carrinho cart){
         this.listaProdutos = lista;
+        this.cart = cart;
     }
 
     @Override
@@ -64,6 +67,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
             ImageButton addQuantidade = view.findViewById(R.id.imgButtomAdicionar);
             ImageButton removeQuantidade = view.findViewById(R.id.imgButtomRemove);
 
+            Button addToCartButton = view.findViewById(R.id.buttomAddCarrinho);
+
             final int[] quantidade = {1};
             txtQuantidade.setText(String.valueOf(quantidade[0]));
 
@@ -86,6 +91,13 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
                     double total = produto.preco * quantidade[0];
                     precoPopup.setText(format.format(total));
                 }
+            });
+
+            addToCartButton.setOnClickListener(view3 -> {
+                this.cart.addProduct(produto, quantidade[0]);
+
+                Toast.makeText(view3.getContext(), "Item Adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+                dialog.hide();
             });
 
             dialog.setContentView(view);
