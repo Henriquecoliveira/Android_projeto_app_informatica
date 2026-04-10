@@ -46,7 +46,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<ProdutoViewHolder> 
         local.preco.setText(formatter.format(produto.preco));
         local.foto.setImageResource(produto.imagemProduto);
 
-        Button removeFromCartButton = local.itemView.findViewById(R.id.removeFromCartButton);
+        ImageButton removeFromCartButton = (ImageButton) local.itemView.findViewById(R.id.removeFromCartButton);
 
         removeFromCartButton.setOnClickListener(view -> {
             int position = local.getAdapterPosition();

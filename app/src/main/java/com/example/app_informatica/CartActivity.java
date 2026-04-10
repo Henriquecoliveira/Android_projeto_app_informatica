@@ -34,11 +34,15 @@ public class CartActivity extends AppCompatActivity {
 
         if (cart.getProducts().isEmpty()) {
             confirmButtom.setEnabled(false);
-            recyclerView.setVisibility(View.GONE);
+            if (recyclerView != null) {
+                recyclerView.setVisibility(View.GONE);
+            }
             txtEmpty.setVisibility(View.VISIBLE);
         } else {
             confirmButtom.setEnabled(true);
-            recyclerView.setVisibility(View.VISIBLE);
+            if (recyclerView != null) {
+                recyclerView.setVisibility(View.VISIBLE);
+            }
             txtEmpty.setVisibility(View.GONE);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setHasFixedSize(true);
@@ -54,11 +58,15 @@ public class CartActivity extends AppCompatActivity {
             updateSummary(cart, totalProductsTxt, totalValueTxt);
 
             if (cart.getProducts().isEmpty()) {
-                recyclerView.setVisibility(View.GONE);
+                if (recyclerView != null) {
+                    recyclerView.setVisibility(View.GONE);
+                }
                 txtEmpty.setVisibility(View.VISIBLE);
                 confirmButtom.setEnabled(false);
             } else {
-                recyclerView.setVisibility(View.VISIBLE);
+                if (recyclerView != null) {
+                    recyclerView.setVisibility(View.VISIBLE);
+                }
                 txtEmpty.setVisibility(View.GONE);
                 confirmButtom.setEnabled(true);
             }

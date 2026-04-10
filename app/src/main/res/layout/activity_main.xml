@@ -5,42 +5,54 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEF2F7"
+    android:background="#FFF"
     tools:context="com.example.app_informatica.MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@color/red"
         app:title="VTech Commerce"
         app:layout_constraintTop_toTopOf="parent"
-
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/searchInput"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_margin="12dp"
+        android:hint="Pesquisar produtos..."
+        android:inputType="text"
+        android:paddingStart="16dp"
+        android:background="@drawable/tertiary_button"
+        android:paddingEnd="16dp"
+        android:textColorHint="#999999"
+        app:layout_constraintEnd_toStartOf="@id/imgCarrinho"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewProdutos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="60dp"
+        android:paddingTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/searchInput" />
 
     <ImageButton
         android:id="@+id/imgCarrinho"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#EEF2F7"
         android:onClick="openCart"
         android:layout_margin="12dp"
-
+        android:padding="12dp"
+        android:background="@drawable/tertiary_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:srcCompat="@drawable/cart" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

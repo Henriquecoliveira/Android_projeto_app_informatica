@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ProdutoViewHolder extends RecyclerView.ViewHolder {
-    TextView nome, descricao, preco;
+    TextView nome, descricao, preco, desconto;
     ImageView foto;
 
     public ProdutoViewHolder(View itemView){
@@ -16,6 +16,6 @@ public class ProdutoViewHolder extends RecyclerView.ViewHolder {
         descricao = itemView.findViewById(R.id.txtDescricaoProduto);
         preco = itemView.findViewById(R.id.txtPreco);
         foto = itemView.findViewById(R.id.imgProdutos);
-
+        desconto = itemView.findViewById(R.id.txtDisccount);
     }
 }

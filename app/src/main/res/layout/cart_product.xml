@@ -75,13 +75,15 @@
                 app:layout_constraintStart_toStartOf="@+id/guideLine"
                 app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
 
-            <Button
+            <ImageButton
                 android:id="@+id/removeFromCartButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginTop="10dp"
-                android:text="Remover"
-                android:textSize="12dp"
+                android:background="@drawable/ciruclar_red_button"
+                android:scaleType="centerInside"
+                android:padding="8dp"
+                app:srcCompat="@drawable/baseline_delete_outline_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtPreco"

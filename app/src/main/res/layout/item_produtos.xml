@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
+        app:cardElevation="5dp"
+        app:cardMaxElevation="6dp"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.5"></androidx.constraintlayout.widget.Guideline>
+                app:layout_constraintGuide_percent="0.5"/>
 
             <TextView
                 android:id="@+id/txtNomeProduto"
@@ -42,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Nome Produto"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideLine"
@@ -65,11 +66,23 @@
                 android:id="@+id/txtPreco"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="preco"
+                android:layout_marginTop="48dp"
                 android:fontFamily="Roboto Mono"
-                android:textSize="16dp"
+                android:textSize="24sp"
                 android:textStyle="bold"
+                android:text="R$ 1.990,00"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideLine"
+                app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />
+
+            <TextView
+                android:id="@+id/txtDisccount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="R$ 1.990,00"
+                android:textSize="12sp"
+                android:textColor="#999999"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideLine"
                 app:layout_constraintTop_toBottomOf="@+id/txtDescricaoProduto" />

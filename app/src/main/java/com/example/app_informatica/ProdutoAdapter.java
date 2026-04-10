@@ -41,13 +41,17 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
         local.nome.setText(produto.nome);
         local.descricao.setText(produto.descricao);
         NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-        local.preco.setText(formato.format(produto.preco));
         local.foto.setImageResource(produto.imagemProduto);
+        local.preco.setText(formato.format(produto.preco));
+        local.desconto.setText("De: " + formato.format(produto.preco * 1.3));
+
 
         local.itemView.setOnClickListener(v -> {
             Context context = v.getContext();
 
             BottomSheetDialog dialog = new BottomSheetDialog(context);
+            NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
             View view = LayoutInflater.from(context).inflate(R.layout.pop_up_produto, null);
 
             ImageView imgPopup = view.findViewById(R.id.imgProdutoGrande);
@@ -60,8 +64,10 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
             descricaoPopup.setText(produto.descricao);
 
             TextView precoPopup = view.findViewById(R.id.txtPrecoPopUp);
-            NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-            precoPopup.setText(format.format(produto.preco));
+            precoPopup.setText(formatter.format(produto.preco));
+
+            TextView disccountPopup = view.findViewById(R.id.priceTextWithoutDiscount);
+            disccountPopup.setText("De: " + formatter.format(produto.preco * 1.3));
 
             TextView txtQuantidade = view.findViewById(R.id.txtQuantidade);
             ImageButton addQuantidade = view.findViewById(R.id.imgButtomAdicionar);
@@ -73,31 +79,35 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
             txtQuantidade.setText(String.valueOf(quantidade[0]));
 
             double preco = produto.preco * quantidade[0];
-            precoPopup.setText(format.format(preco));
+            precoPopup.setText(formatter.format(preco));
 
             addQuantidade.setOnClickListener(view1 -> {
                 quantidade[0]++;
                 txtQuantidade.setText(String.valueOf(quantidade[0]));
 
                 double total = produto.preco * quantidade[0];
-                precoPopup.setText(format.format(total));
-
+                precoPopup.setText(formatter.format(total));
             });
+
             removeQuantidade.setOnClickListener(view2 ->{
                 if(quantidade[0] > 1){
                     quantidade[0]--;
                     txtQuantidade.setText(String.valueOf(quantidade[0]));
 
                     double total = produto.preco * quantidade[0];
-                    precoPopup.setText(format.format(total));
+                    precoPopup.setText(formatter.format(total));
                 }
             });
 
             addToCartButton.setOnClickListener(view3 -> {
-                this.cart.addProduct(produto, quantidade[0]);
-
-                Toast.makeText(view3.getContext(), "Item Adicionado ao carrinho", Toast.LENGTH_SHORT).show();
-                dialog.hide();
+                if (this.cart != null) {
+                    System.out.println("adicionado ");
+                    this.cart.addProduct(produto, quantidade[0]);
+                    Toast.makeText(view3.getContext(), "Item Adicionado ao carrinho", Toast.LENGTH_SHORT).show();
+                    dialog.hide();
+                } else {
+                    Toast.makeText(view3.getContext(), "Erro ao adicionar item", Toast.LENGTH_SHORT).show();
+                }
             });
 
             dialog.setContentView(view);
@@ -105,10 +115,17 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoViewHolder> {
         });
 
     }
+
     @Override
     public int getItemCount(){
         return listaProdutos.size();
     }
+
+    public void updateList(List<Produto> newList) {
+        this.listaProdutos = newList;
+        notifyDataSetChanged();
+    }
+
 }
 
 

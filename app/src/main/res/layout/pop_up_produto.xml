@@ -4,15 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:backgroundTint="#FDFDFD">
+    android:backgroundTint="#FFF">
+
+    <View
+        android:id="@+id/dragHandle"
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/drag_handle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <ImageView
         android:id="@+id/imgProdutoGrande"
         android:layout_width="210dp"
+        android:layout_marginTop="36dp"
         android:layout_height="210dp"
-        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
@@ -21,13 +31,13 @@
         android:id="@+id/txtTituloPopUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:paddingHorizontal="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Nome Produto"
-        android:textSize="20sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgProdutoGrande" />
 
@@ -35,73 +45,102 @@
         android:id="@+id/txtDescricaoPopUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingHorizontal="16dp"
-        android:text="Descricao"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Descrição do produto"
+        android:textSize="18sp"
+        android:textColor="#666666"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTituloPopUp" />
 
     <TextView
-        android:id="@+id/txtPrecoPopUp"
-        android:layout_width="wrap_content"
+        android:id="@+id/priceTextWithoutDiscount"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="36dp"
-        android:text="preco"
-        android:textColor="#006400"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoPopUp"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/txtQuantidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="#F8F8F8"
-        android:text="1"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="R$ 1.990,00"
+        android:textSize="12sp"
+        android:textColor="#999999"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtDescricaoPopUp" />
 
-    <ImageButton
-        android:id="@+id/imgButtomAdicionar"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FFFFFF"
+    <TextView
+        android:id="@+id/txtPrecoPopUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="R$ 1.290,00"
+        android:textColor="#006400"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toEndOf="@+id/txtQuantidade"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoPopUp"
-        app:srcCompat="@drawable/outline_add_24" />
-
-    <ImageButton
-        android:id="@+id/imgButtomRemove"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="#FFFFFF"
-        app:layout_constraintEnd_toStartOf="@+id/txtQuantidade"
-        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescricaoPopUp"
-        app:srcCompat="@drawable/outline_check_indeterminate_small_24" />
+        app:layout_constraintTop_toBottomOf="@+id/priceTextWithoutDiscount" />
+
+    <LinearLayout
+        android:id="@+id/quantityLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPrecoPopUp">
+
+        <ImageButton
+            android:id="@+id/imgButtomRemove"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tertiary_button"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            app:srcCompat="@drawable/outline_check_indeterminate_small_24" />
+
+        <TextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/imgButtomAdicionar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/tertiary_button"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            app:srcCompat="@drawable/outline_add_24" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttomAddCarrinho"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
         android:text="Adicionar ao carrinho"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_12px"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtQuantidade"
+        app:layout_constraintTop_toBottomOf="@+id/quantityLayout"
         app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
