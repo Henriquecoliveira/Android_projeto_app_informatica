@@ -1,73 +1,80 @@
 package com.example.app_informatica;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CheckoutFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CheckoutFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public CheckoutFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CheckoutFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CheckoutFragment newInstance(String param1, String param2) {
-        CheckoutFragment fragment = new CheckoutFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        // Infla o layout específico deste fragmento
         View view = inflater.inflate(R.layout.fragment_checkout, container, false);
 
+        // 1. Configurando o Spinner de Pagamento
+        Spinner spinner = view.findViewById(R.id.spinnerPagamento);
+        List<String> opcoes = new ArrayList<>();
+        opcoes.add("Pix");
+        opcoes.add("Cartão Crédito");
+        opcoes.add("Cartão Débito");
+        opcoes.add("Boleto");
+
+        // Usamos requireContext() pois estamos dentro de um Fragment
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                opcoes
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
+        // 2. Configurando a imagem do Carrinho
+        Carrinho cart = (Carrinho) Carrinho.getInstance();
+        ImageView firstProductImage = view.findViewById(R.id.firstCardProduct);
+
+        if(!cart.getProducts().isEmpty()){
+            Produto firstProduct = cart.getProducts().get(0);
+            firstProductImage.setImageResource(firstProduct.getImagemProduto());
+        }
+
+        // 3. Configurando o botão de Confirmar e a troca de tela
         Button btnConfirmar = view.findViewById(R.id.confirmar_Confirmacao);
+        EditText edtCep = view.findViewById(R.id.endereco_Confirmacao); // Pega o campo de CEP
 
         btnConfirmar.setOnClickListener(v -> {
+            // Captura o CEP e o método de pagamento escolhido
+            String cepDigitado = edtCep.getText().toString();
+            String metodoPagamento = spinner.getSelectedItem().toString();
+
+            // Prepara a tela de confirmação
+            ConfirmacaoFragment confirmacaoFragment = new ConfirmacaoFragment();
+
+            // Cria um "pacote" com os dados e anexa ao Fragment
+            Bundle bundle = new Bundle();
+            bundle.putString("CEP", cepDigitado);
+            bundle.putString("PAGAMENTO", metodoPagamento);
+            confirmacaoFragment.setArguments(bundle);
+
+            // Faz a troca de tela
             getParentFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragmentContainer, new ConfirmacaoPedidoFragment())
+                    .replace(R.id.fragmentContainer, confirmacaoFragment)
                     .addToBackStack(null)
                     .commit();
         });

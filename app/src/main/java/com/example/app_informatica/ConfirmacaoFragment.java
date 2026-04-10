@@ -1,64 +1,85 @@
 package com.example.app_informatica;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConfirmacaoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.Random;
+
 public class ConfirmacaoFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ConfirmacaoFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ConfirmacaoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ConfirmacaoFragment newInstance(String param1, String param2) {
-        ConfirmacaoFragment fragment = new ConfirmacaoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_confirmacao, container, false);
+        // Infla o layout
+        View view = inflater.inflate(R.layout.fragment_confirmacao, container, false);
+
+        // 1. Receber os dados passados pelo CheckoutFragment (CEP e Pagamento)
+        String cep = "Não informado";
+        String pagamento = "Não informado";
+
+        if (getArguments() != null) {
+            cep = getArguments().getString("CEP", "Não informado");
+            pagamento = getArguments().getString("PAGAMENTO", "Não informado");
+        }
+
+        // 2. Puxar os dados do Carrinho
+        Carrinho cart = (Carrinho) Carrinho.getInstance();
+        int totalItens = cart.getProducts().size();
+        double totalPreco = 0;
+
+        for (Produto p : cart.getProducts()) {
+            totalPreco += p.preco; // Certifique-se de que o atributo de preço no seu Produto se chama "preco"
+        }
+
+        // Formatar o valor para Reais (R$)
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String totalFormatado = format.format(totalPreco);
+
+        // 3. Gerar um número de pedido aleatório (entre 100000 e 999999)
+        int numeroPedido = new Random().nextInt(900000) + 100000;
+
+        // 4. Vincular os elementos do XML
+        TextView txtPedidoNumero = view.findViewById(R.id.txtPedidoNumero);
+        TextView txtMetodoPagamento = view.findViewById(R.id.txtMetodoPagamento);
+        TextView txtEnderecoEntrega = view.findViewById(R.id.txtEnderecoEntrega);
+        TextView txtQuantidadeItens = view.findViewById(R.id.txtQuantidadeItens);
+        TextView txtTotalCompra = view.findViewById(R.id.txtTotalCompra);
+        Button btnVoltarInicio = view.findViewById(R.id.btnVoltarInicio);
+
+        // 5. Preencher as informações na tela
+        txtPedidoNumero.setText("OBRIGADO! PEDIDO #" + numeroPedido);
+        txtMetodoPagamento.setText("Método de pagamento: " + pagamento);
+        txtEnderecoEntrega.setText("CEP de Entrega: " + cep);
+        txtQuantidadeItens.setText("Itens: " + totalItens);
+        txtTotalCompra.setText("Total: " + totalFormatado);
+
+        // 6. Configurar o botão "Voltar para o Início"
+        btnVoltarInicio.setOnClickListener(v -> {
+            // Limpa o carrinho de compras
+            cart.getProducts().clear();
+
+            // Cria o caminho de volta para a tela principal
+            // IMPORTANTE: Se a sua tela inicial tiver outro nome, troque MainActivity.class pelo nome correto
+            android.content.Intent intent = new android.content.Intent(requireContext(), MainActivity.class);
+
+            // Essas duas flags apagam todo o histórico de navegação (BackStack)
+            intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            // Inicia a tela principal
+            startActivity(intent);
+        });
+
+        return view;
     }
 }
