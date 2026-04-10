@@ -32,7 +32,8 @@ public class CheckoutActivity extends AppCompatActivity {
 
         List<String> opcoes = new ArrayList<>();
         opcoes.add("Pix");
-        opcoes.add("Cartão");
+        opcoes.add("Cartão Credito");
+        opcoes.add("Cartão Debito");
         opcoes.add("Boleto");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
