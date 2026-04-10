@@ -1,12 +1,16 @@
 package com.example.app_informatica;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,4 +83,33 @@ public class CheckoutActivity extends AppCompatActivity {
         priceText.setText("Total: " + format.format(totalPreco));
     }
 
+    // Instanciar AlertDialog
+    public void caixaDeAlerta(View view) {
+        AlertDialog.Builder alerta = new AlertDialog.Builder(this);
+
+        alerta.setTitle("Confirmação de compra");
+        alerta.setMessage("Deseja finalizar a sua compra?");
+        alerta.setCancelable(true); // Permite fechar clicando fora
+
+        // Botão Negativo (Cancelar)
+        alerta.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+
+        // Botão Positivo (Confirmar)
+        alerta.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Carrinho.getInstance().getProducts().clear(); //limpando tudo
+                Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+                Toast.makeText(CheckoutActivity.this, "Compra realizada com sucesso!", Toast.LENGTH_LONG).show();
+            }
+        });
+        alerta.create();
+        alerta.show();
+    }
 }
