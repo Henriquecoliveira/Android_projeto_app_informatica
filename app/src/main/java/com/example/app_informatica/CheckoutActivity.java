@@ -16,7 +16,7 @@ public class CheckoutActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(v -> {
-            finish(); // Volta para a tela anterior
+            finish();
         });
     }
 
